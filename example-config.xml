@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE cache-config SYSTEM "cache-config.dtd">
+
+<cache-config>
+   <caching-scheme-mapping>
+      <cache-mapping>
+         <cache-name>user</cache-name>
+         <scheme-name>distributed</scheme-name>
+      </cache-mapping>
+   </caching-scheme-mapping>
+   
+   <!--caching-schemes>
+      <distributed-scheme>
+         <scheme-name>distributed</scheme-name>
+         <service-name>DistributedCache</service-name>
+         <backing-map-scheme>            
+         	<local-scheme/>         
+         </backing-map-scheme>
+         <autostart>true</autostart>
+      </distributed-scheme>
+   </caching-schemes-->
+   
+       <caching-schemes>
+        <remote-cache-scheme>
+            <scheme-name>distributed</scheme-name>
+            <service-name>ExtendTcpCacheService</service-name>
+            <initiator-config>
+                <tcp-initiator>
+                    <remote-addresses>
+                        <socket-address>
+                            <address>192.168.99.1</address>
+                            <port>8081</port>
+                        </socket-address>
+                    </remote-addresses>
+                </tcp-initiator>
+                <outgoing-message-handler>
+                    <request-timeout>20s</request-timeout>
+                </outgoing-message-handler>
+            </initiator-config>
+        </remote-cache-scheme>
+    </caching-schemes>
+</cache-config>

@@ -1,0 +1,94 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE cache-config SYSTEM "cache-config.dtd">
+
+<cache-config>
+   <caching-scheme-mapping>
+      <cache-mapping>
+         <cache-name>user</cache-name>
+         <scheme-name>distributed</scheme-name>
+      </cache-mapping>
+   </caching-scheme-mapping>
+   
+   <caching-schemes>
+   <!--distributed-scheme>
+   <scheme-name>distributed</scheme-name>
+   <service-name>DistributedCache</service-name>
+   <backing-map-scheme>
+    <read-write-backing-map-scheme>
+     <internal-cache-scheme>
+		<local-scheme/>
+     </internal-cache-scheme>
+     <cachestore-scheme>  
+      <class-scheme> 
+       <class-name>com.troy.DBCacheStore</class-name> 
+       <init-params>   
+        <init-param> 
+         <param-type>java.lang.String</param-type> 
+         <param-value>CACHE</param-value> 
+        </init-param> 
+       </init-params> 
+      </class-scheme> 
+     </cachestore-scheme> 
+     <read-only>false</read-only>
+     <write-delay-seconds>0</write-delay-seconds>
+    </read-write-backing-map-scheme>
+   </backing-map-scheme>
+   <autostart>true</autostart>
+  </distributed-scheme-->
+  
+      <distributed-scheme>
+      <scheme-name>distributed</scheme-name>
+      <service-name>JpaDistributedCache</service-name>
+      <backing-map-scheme>
+        <read-write-backing-map-scheme>
+          <internal-cache-scheme>
+            <local-scheme/>
+          </internal-cache-scheme>
+          <!--Define the cache scheme. -->
+          <cachestore-scheme>
+            <class-scheme>
+              <class-name>
+                com.tangosol.coherence.jpa.JpaCacheStore
+              </class-name>
+              <init-params>
+
+                <!-- This param is the entity name. -->
+                <init-param>
+                  <param-type>java.lang.String</param-type>
+                  <param-value>{cache-name}</param-value>
+                </init-param>
+
+                <!-- This param is the fully qualified entity class. -->
+                <init-param>
+                  <param-type>java.lang.String</param-type>
+                  <param-value>com.troy.Car</param-value>
+                </init-param>
+
+                <!-- This param should match the value of the -->
+                <!-- persistence unit name in persistence.xml. -->
+                <init-param>
+                  <param-type>java.lang.String</param-type>
+                  <param-value>CarUnit</param-value>
+                </init-param>
+              </init-params>
+            </class-scheme>
+          </cachestore-scheme>
+        </read-write-backing-map-scheme>
+      </backing-map-scheme>
+    </distributed-scheme>
+  
+    <proxy-scheme>
+      <service-name>Proxy</service-name>
+      <acceptor-config>
+        <tcp-acceptor>
+          <local-address>
+            <address>localhost</address>
+            <port>8080</port>
+          </local-address>
+        </tcp-acceptor>
+      </acceptor-config>
+      <autostart>true</autostart>
+    </proxy-scheme>
+ </caching-schemes>
+</cache-config>
